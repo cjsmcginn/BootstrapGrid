@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="/Content/bootstrap.custom.css" rel="stylesheet">
+</head>
+    <body>
+        <div id="notifications"></div>
+<script type="text/html" id="row-edit-template">
+    <td data-column="Id">&nbsp;</td>
+    <td data-column="Name">
+        <div class="form-horizonatal edit-form">
+            <div class="control-group">
+                <div class="controls row-edit-controls">
+                    <button class="btn edit-delete" data-bind="with: $data">
+                        <img src="@Url.Content("~/content/images/delete.png")" /></button>
+                    <input type="text" class="name-input" data-bind="value: Name" />
+                    <button class="btn edit-cancel">Cancel</button>
+                    <button class="btn btn-primary edit-save" data-bind="with: $data">Save</button>
+
+                </div>
+            </div>
+        </div>
+    </td>
+    <td data-column="template" class="template-column">&nbsp;
+    </td>
+</script>
+<script type="text/html" id="grid-template">
+    <table class="table table-striped">
+        <thead>
+            <tr class="header-top">
+                <!--ko foreach: Columns-->
+                <th data-bind="style: { 'width': Width() }">
+                    <div class="grid-sort">
+                        <span data-bind="text: Header"></span>
+
+                        <i class="grid-sort-order icon-white" style="float: right"></i>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" data-bind="foreach: Filters">
+                            <li>
+                                <a href="#" role="menuitem" data-bind="text: Name, css: { 'selected': Selected }" data-filter="selectFilter"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </th>
+                <!--/ko-->
+                <th class="template-column">&nbsp;</th>
+            </tr>
+            <tr data-bind="">
+                <!-- ko foreach: Columns-->
+                <th data-bind="style: { 'width': Width() }">
+                    <div>
+                        <div class="input-append">
+                            <input type="text" data-bind="style: { 'width': Width() }, value: FilterExpression">
+                            <div class="add-on"><i class="icon-remove grid-search" data-filter="clear"></i></div>
+                            <div class="add-on"><i class="icon-search grid-search" data-filter="filter"></i></div>
+                        </div>
+                    </div>
+                </th>
+                <!--/ko-->
+                <th data-column="template" class="template-column">
+                    <div class="form-horizonatal edit-form">
+                        <div class="control-group">
+                            <div class="controls row-edit-controls">
+                                <input type="text" class="edit-new" placeholder="New Name" />
+                                <button class="btn btn-primary edit-add">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <!-- ko if:Rows().length == 0-->
+        <tbody>
+            <tr>
+                <td colspan="8">
+                    <div class="empty-row">
+                        <h3>No Records Found</h3>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <!-- /ko -->
+        <!-- ko if:Rows().length > 0-->
+        <tbody data-bind="foreach: Rows">
+            <tr data-bind="gridRow: $data" class="grid-row"></tr>
+        </tbody>
+        <!-- /ko -->
+        <tfoot>
+            <tr>
+                <td colspan="7">
+
+                    <div class="pager-wrap" data-bind="with: Pager">
+                        <div class="row-fluid">
+                            <div class="pager-controls">
+                                <i class="icon-fast-backward page-control" data-page="first"></i>
+                                <i class="icon-step-backward page-control" data-page="previous"></i>
+                                <span>Page</span>
+                                <input type="text" data-bind="value: CurrentPage" class="current-page" data-page="change" />
+                                <span>of</span>
+                                <span data-bind="text: TotalPages"></span>
+                                <i class="icon-step-forward page-control" data-page="next"></i>
+                                <i class="icon-fast-forward page-control" data-page="last"></i>
+                            </div>
+
+                        </div>
+                        <div class="page-size">
+
+
+                            <span>Show</span>
+
+                            <select data-bind="value: PageSize" data-page="size">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</script>
+<div id="overlay" class="grid-overlay" style="display: none">
+    <div style="width: 16px; height: 16px; margin: auto">
+        <img class="loading-image" src="@Url.Content("~/Content/images/ajax-loader.gif")" />
+    </div>
+</div>
+
+
+<!--Begin tabs-->
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#event" data-grid="#events" data-container="event" data-toggle="tab">People</a></li>
+    <li><a href="#place" data-toggle="tab" data-grid="#places" data-container="place">Place</a></li>
+    <li><a href="#social" data-container="social" data-grid="#things" data-toggle="tab">Thing</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="event">
+        <div class="grid" id="events" data-template="grid-template"></div>
+    </div>
+    <div class="tab-pane" id="place">
+        <div class="grid" id="places" data-template="grid-template"></div>
+    </div>
+    <div class="tab-pane" id="thing">
+        <div class="grid" id="things" data-template="grid-template"></div>
+    </div>
+</div>
+<input type="text" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/amplify.js"></script>
+    <script src="~/Scripts/notify.js"></script>
+    <script src="~/Scripts/knockout-2.2.1.js"></script>
+    <script src="~/Scripts/knockout.mapping.js"></script>
+    <script src="~/Scripts/knockout.protectedObservable.js"></script>
+    <script src="~/Scripts/gridcontrol.js"></script>
+    <script src="~/Scripts/people.js"></script>
+    <script>
+
+        $(function () {
+            //container is not used it is here specifically as a placeholder to pull back different data from different tabs, not implemented.
+            function init() {
+
+                var kwd = null;
+                $(function () {
+                    kwd = new PeopleDocuments({ element: $('#events'), container: 'event' });
+                    kwd.init();
+                    $('a[data-toggle="tab"]').on('shown', function (e) {
+                        kwd.destroy();
+                        kwd = new PeopleDocuments({ element: $($(e.currentTarget).data('grid')), container: $(e.currentTarget).data('container') });
+                        kwd.init();
+                    });
+
+                });
+            }
+            console.log('here');
+            init();
+        })
+    </script>
+    </body>    
+</html>
+
+

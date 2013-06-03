@@ -1,0 +1,100 @@
+﻿/*-------Bootstrap overrides-------*/
+
+/*-------Grid control-------*/
+.grid .current-page {
+    width: 35px;
+    padding:0px;
+}
+
+.grid-overlay {
+    background: #FFF;
+    opacity: 0.8;
+    position: absolute;
+    z-index: 99;
+}
+
+.grid .header-top th, tfoot {
+    background-color: #005C8C;
+    background-image: -moz-linear-gradient(center bottom, #005179 0%, #00689C 100%);
+    border-bottom: 1px solid #1A6186;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.6);
+    color: #FFFFFF;
+    position: relative;
+    z-index: 9999;
+}
+
+.grid thead th span {
+    cursor: pointer;
+}
+
+.grid .dropdown-menu li {
+    color: #CCC;
+}
+
+.grid .pager-controls {
+    margin: auto;
+    width: 225px;
+}
+
+.grid .dropdown-menu > li > a.selected {
+    font-weight: bold;
+}
+
+.grid .add-on i {
+    cursor: pointer;
+}
+
+.grid {
+    z-index: 1;
+}
+
+.grid .modal-edit {
+    z-index: 99999;
+}
+
+.grid .add-button, .delete-button {
+    width: 30px;
+    height: 30px;
+}
+
+.grid .grid tr td {
+    cursor: pointer;
+}
+
+.grid .pager-wrap {
+    position: relative;
+}
+
+.grid .page-size {
+    position: absolute;
+    top: 0px;
+    margin-left: 90%;
+    padding-right: 10px;
+}
+
+    .page-size select {
+        width: 75px;
+        height:auto;
+        padding:0px;
+    }
+
+    .page-size span {
+        padding-right: 5px;
+    }
+
+.empty-row {
+    width: 230px;
+    margin: auto;
+}
+
+.row-edit-controls button {
+    vertical-align: top;
+}
+
+.template-column {
+    width: 400px;
+}
+
+    .template-column .control-group {
+        margin-bottom: 0px;
+    }
